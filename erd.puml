@@ -1,7 +1,7 @@
 @startuml Board ERD
 
-entity user { 
-    * user_no : INT <<generated>>
+entity kb_user { 
+    * user_no : SERIAL <<generated>>
     --
     user_id : VARCHAR(30) NOT NULL
     password : VARCHAR(30) NOT NULL
@@ -9,31 +9,31 @@ entity user {
     created_date : TIMESTAMP NOT NULL
 }
 
-entity post {
-    * post_no : INT <<generated>>
+entity kb_post {
+    * post_no : SERIAL <<generated>>
     --
-    * user_no : INT <<FK>>
+    * user_no : INTEGER <<FK>>
     category : VARCHAR(30) NULL
     title : VARCHAR(100) NOT NULL
     content : TEXT NULL
     created_date : TIMESTAMP NOT NULL
-    recommend : INT NOT NULL
-    decommend : INT NOT NULL
+    up : INT NOT NULL
+    down : INT NOT NULL
 }
 
-entity comment {
-    * comment_no : INT <<generated>>
+entity kb_comment {
+    * comment_no : SERIAL <<generated>>
     --
-    * user_no : INT <<FK>>
-    * post_no : INT <<FK>>
+    * user_no : INTEGER <<FK>>
+    * post_no : INTEGER <<FK>>
     content TEXT NOT NULL
     created_date TIMESTAMP NOT NULL
-    recommend INT NOT NULL
-    decommend INT NOT NULL
+    up INT NOT NULL
+    down INT NOT NULL
 }
 
-user ||--o{ post
-post ||--o{ comment
-user ||--o{ comment
+kb_user ||--o{ kb_post
+kb_post ||--o{ kb_comment
+kb_user ||--o{ kb_comment
 
 @enduml
