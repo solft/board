@@ -1,0 +1,39 @@
+@startuml Board ERD
+
+entity user { 
+    * user_no : INT <<generated>>
+    --
+    user_id : VARCHAR(30) NOT NULL
+    password : VARCHAR(30) NOT NULL
+    username : VARCHAR(30) NOT NULL
+    created_date : TIMESTAMP NOT NULL
+}
+
+entity post {
+    * post_no : INT <<generated>>
+    --
+    * user_no : INT <<FK>>
+    category : VARCHAR(30) NULL
+    title : VARCHAR(100) NOT NULL
+    content : TEXT NULL
+    created_date : TIMESTAMP NOT NULL
+    recommend : INT NOT NULL
+    decommend : INT NOT NULL
+}
+
+entity comment {
+    * comment_no : INT <<generated>>
+    --
+    * user_no : INT <<FK>>
+    * post_no : INT <<FK>>
+    content TEXT NOT NULL
+    created_date TIMESTAMP NOT NULL
+    recommend INT NOT NULL
+    decommend INT NOT NULL
+}
+
+user ||--o{ post
+post ||--o{ comment
+user ||--o{ comment
+
+@enduml
