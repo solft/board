@@ -8,6 +8,18 @@
             kb_user(user_id, password, username, created_date)
         values (#{userId}, #{password}, #{username}, now())
     </insert>
+    
+    <insert id="insertPost" parameterType="Post" useGeneratedKeys="true" keyProperty="postNo">
+        insert into
+            kb_post(user_no, category, title, content, created_date)
+        values (#{userNo}, #{category}, #{title}, #{content}, now())
+    </insert>
+
+    <insert id="insertComment" parameterType="Comment" useGeneratedKeys="true" keyProperty="commentNo">
+        insert into
+            kb_comment(user_no, post_no, content, created_date)
+        values (#{userNo}, #{postNo}, #{content}, now())
+    </insert>
 
     <select id="selectUser" resultType="User">
         select
@@ -18,5 +30,63 @@
                 created_date as createdDate
         from
              kb_user
+    </select>
+
+    <select id="selectPost" resultType="Post">
+        select
+               post_no as postNo,
+               user_no as userNo,
+               category as category,
+               title as title,
+               content as content,
+               created_date as createdDate,
+               up as up,
+               down as down
+        from
+             kb_post
+    </select>
+
+    <select id="selectPostByPostNo" resultType="Post" parameterType="Int">
+        select
+        post_no as postNo,
+        user_no as userNo,
+        category as category,
+        title as title,
+        content as content,
+        created_date as createdDate,
+        up as up,
+        down as down
+        from
+        kb_post
+        where
+            post_no = #{postNo}
+    </select>
+
+    <select id="selectComment" resultType="Comment">
+        select
+               comment_no as commentNo,
+               user_no as userNo,
+               post_no as postNo,
+               content as content,
+               created_date as createdDate,
+               up as up,
+               down as down
+        from
+             kb_comment
+    </select>
+
+    <select id="selectCommentByCommentNo" resultType="Comment" parameterType="Int">
+        select
+               comment_no as commentNo,
+               user_no as userNo,
+               post_no as postNo,
+               content as content,
+               created_date as createdDate,
+               up as up,
+               down as down
+        from
+             kb_comment
+        where
+            comment_no = #{commentNo}
     </select>
 </mapper>
