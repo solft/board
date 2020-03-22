@@ -1,0 +1,10 @@
+
+
+spring:
+  datasource:
+    hikari:
+      username: postgres
+      password: janghansol
+      driver-class-name: org.postgresql.Driver
+      jdbc-url: jdbc:postgresql://localhost:5432/postgres
+
